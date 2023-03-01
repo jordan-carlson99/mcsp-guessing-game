@@ -1,13 +1,61 @@
 .info {
-    width: 650px;
-    border-radius: 30px;
-    border: 10px solid seagreen;
-    background-color: saddlebrown;
-    padding: 5px;
-    font-weight: bolder;
-    color: whitesmoke
+  width: 650px;
+  border-radius: 30px;
+  border: 10px solid seagreen;
+  background-color: saddlebrown;
+  padding: 5px;
+  font-weight: bolder;
+  color: whitesmoke;
 }
 
-strong {
-    color: palegreen;
+body {
+  text-align: center;
+  background-image: radial-gradient(green, beige);
+  padding-bottom: 90%;
+}
+
+button {
+  padding: 5px;
+  margin-bottom: 10px;
+  color: beige;
+  background-color: #000;
+}
+
+header {
+  background-color: black;
+}
+nav {
+  background-color: black;
+  color: beige;
+  padding-top: 30px;
+  font: bold;
+  font-size: 35px;
+  font-family: Georgia, "Times New Roman";
+  overflow: hidden;
+}
+
+table {
+  border: solid 1px black;
+  padding: 5px;
+  table-layout: fixed;
+  width: 100%;
+  border-spacing: 0px;
+}
+
+th {
+  text-align: center;
+  padding: 10px;
+  border-right: solid 2px black;
+}
+
+td {
+  border-right: solid 2px black;
+  border-bottom: solid 2px black;
+  padding: 5px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.scoreboardRow {
+  background-color: navajowhite;
+  border: solid 1px black;
 }
