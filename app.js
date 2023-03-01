@@ -1,37 +1,41 @@
 let scoreBoard = {};
-let guess;
-let numGuess;
-let oldGuess;
-let answer;
+
+// this is the main functional loop that executes when button is pressed
 function gameLoop(playerName) {
   if (typeof playerName != "string") {
     var playerName = prompt("what's your name?");
   }
 
-  //   answer = Math.floor(Math.random() * 100);
-  answer = 20;
-  guess = prompt("I'm thinking of a number between 1 and 100");
-  numGuess = 1;
-  oldGuess = [guess];
+  answer = Math.floor(Math.random() * 100);
+  let guess = prompt("I'm thinking of a number between 1 and 100");
+  let numGuess = 1;
+  let oldGuess = [guess];
 
   while (guess != answer) {
-    if (guess < answer) {
+    guess = parseInt(guess);
+    if (!guess || typeof guess !== "number") {
+      guess = prompt(`try again!`);
+      continue;
+    } else if (guess < answer) {
       guess = prompt(`sorry, ${playerName} ${guess} too low guess again`);
-      numGuess++;
-      oldGuess.push(guess);
     } else if (guess > answer) {
       guess = prompt(`sorry, ${playerName} ${guess} too high guess again`);
-      numGuess++;
-      oldGuess.push(guess);
-    } else {
-      guess = prompt(`try again!`);
     }
+    numGuess++;
+    oldGuess.push(guess);
   }
+
   scoreSorter(playerName, answer, numGuess, oldGuess);
   tableRead(scoreBoard);
-  playAgain(playerName);
+
+  // this sends the play again to the webapi queue so the stack is empty long enough to render
+  // from tableread, thanks for the video rane!
+  setTimeout(() => {
+    playAgain(playerName);
+  }, 1);
 }
 
+// tanages the messages for correct answers and the scoreboard object
 function scoreSorter(playerName, answer, numGuess, oldGuess) {
   if (scoreBoard[playerName] === undefined) {
     scoreBoard[playerName] = numGuess;
@@ -48,6 +52,7 @@ function scoreSorter(playerName, answer, numGuess, oldGuess) {
   }
 }
 
+// checks to see if player wants to play again with the same name
 function playAgain(playerName) {
   let ans = prompt("play again? (Y / N)");
   if (ans != "Y") {
@@ -57,9 +62,8 @@ function playAgain(playerName) {
   }
 }
 
+// reads from object and appends table with values
 function tableRead(obj) {
-  localStorage.clear();
-  localStorage.setItem("myFile", JSON.stringify(obj));
   let table = document.getElementById("scores");
   table.innerHTML = `<tr>
   <th>Player Name</th>
